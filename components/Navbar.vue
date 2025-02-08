@@ -76,4 +76,22 @@ function scrollToSubscription() {
     width: 5rem;
     height: auto;
 }
+
+@media (max-width: 750px) {
+  .nav-link {
+    margin-right: 1rem;
+    font-size: 1rem;
+  }
+
+  .join-btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+}
+@media (max-width: 520px) {
+    .join-btn {
+        display: none;
+    }
+}
 </style>

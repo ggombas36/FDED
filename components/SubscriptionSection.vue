@@ -112,4 +112,17 @@
   font-size: 1.1rem; /* Bigger font size */
   line-height: 2;
 }
+
+@media (max-width: 830px) {
+  .subscriptions-section {
+    height: 1500px;
+  }
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sub-card {
+    margin-bottom: 50px;
+  }
+}
 </style>

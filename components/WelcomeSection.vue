@@ -23,11 +23,12 @@ function scrollToSubscription() {
 </script>
 
 <style scoped>
-.subscribe-link{
+.subscribe-link {
     color: #fff;
     text-decoration: underline;
     cursor: pointer;
 }
+
 .hero-section {
     width: 100%;
     background: linear-gradient(135deg, #34363A 10%, #738ba0 50%, #ffffff 80%);
@@ -35,7 +36,7 @@ function scrollToSubscription() {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1%;
+    padding: 1rem;
 }
 
 .hero-card {
@@ -55,7 +56,6 @@ function scrollToSubscription() {
     margin-bottom: 1.5rem;
 }
 
-/* Typography */
 h1,
 h2,
 h3 {
@@ -67,5 +67,15 @@ h3 {
     color: #fff;
     margin-top: 1rem;
     font-size: 1.1rem;
+}
+
+@media (max-width: 830px) {
+    .hero-card {
+        width: 80%;
+    }
+
+    .hero-section {
+        height: 650px;
+    }
 }
 </style>
