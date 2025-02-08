@@ -18,7 +18,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import InputField from './InputField.vue';
+import InputField from '../InputField.vue';
 import * as Yup from 'yup';
 import { useForm, useField } from 'vee-validate';
 

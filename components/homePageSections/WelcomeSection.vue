@@ -1,7 +1,7 @@
 <template>
     <section class="hero-section">
         <div class="hero-card">
-            <img src="../assets/images/fdedlogo.png" alt="FDed.EU Logo" class="hero-image" />
+            <img src="@/assets/images/fdedlogo.png" alt="FDed.EU Logo" class="hero-image" />
             <h1>FDed.EU</h1>
             <h2>Készülj fel az egyetemre!</h2>
             <h3>Valósítsd meg az álmaid!</h3>

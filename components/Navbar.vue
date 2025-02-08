@@ -3,7 +3,7 @@
         <nav class="navbar d-flex align-items-center custom-navbar">
             <div class="nav-container d-flex justify-content-between align-items-center w-100">
                 <div class="d-flex align-items-center logo-container">
-                    <img src="../assets/images/fdedlogo.png" alt="Logo" class="logo-img" @click="scrollToTop" />
+                    <img src="@/assets/images/fdedlogo.png" alt="Logo" class="logo-img" @click="scrollToTop" />
                 </div>
                 <div class="d-flex align-items-center link-container">
                     <NuxtLink to="/" class="nav-link text-white" @click.native="scrollToTop">Kezdőlap</NuxtLink>
