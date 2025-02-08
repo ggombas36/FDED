@@ -2,7 +2,7 @@
     <Navbar />
     <div class="main-container">
         <div class="page-content">
-            <WelcomeSection />
+            <WelcomeSection id="welcome-section"/>
             <InfoSection />
             <SubscriptionSection id="subscription-section" />
             <TableSection />
