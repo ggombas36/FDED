@@ -1,0 +1,73 @@
+<template>
+    <div class="profile-page">
+      <Navbar />
+  
+      <div class="content">
+        <div v-if="isLoggedIn" class="logged-in-message">
+          <p>Bejelentkezve</p>
+        </div>
+        <div v-else class="auth-container">
+          <Login v-if="showLogin" @go-register="switchToRegister" @forgot-password="switchToForgot" />
+      <Register v-else-if="showRegister" @go-login="switchToLogin" />
+      <ForgotPassword v-else @go-login="switchToLogin" />
+        </div>
+      </div>
+  
+      <Footer />
+    </div>
+  </template>
+  
+  <script setup>
+  import { ref } from 'vue'
+  // Replace these imports as needed
+  import Navbar from '@/components/Navbar.vue'
+  import Footer from '@/components/Footer.vue'
+  import Login from '@/components/Login.vue'
+  import Register from '@/components/Register.vue'
+  import ForgotPassword from '@/components/ForgotPassword.vue'
+  
+  const isLoggedIn = ref(false)
+  const showLogin = ref(true)
+  const showRegister = ref(false)
+  const showForgot = ref(false)
+
+function switchToLogin() {
+  showLogin.value = true
+  showRegister.value = false
+  showForgot.value = false
+}
+function switchToRegister() {
+  showLogin.value = false
+  showRegister.value = true
+  showForgot.value = false
+}
+function switchToForgot() {
+  showLogin.value = false
+  showRegister.value = false
+  showForgot.value = true
+}
+  </script>
+  
+  <style scoped>
+  .profile-page {
+    height: 100vh; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Example styling */
+  .logged-in-message {
+    color: #fff;
+    background-color: #333;
+    padding: 2rem;
+  }
+  .auth-container {
+    width: 80%;
+    max-width: 600px;
+  }
+  </style>

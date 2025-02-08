@@ -8,10 +8,8 @@
                 <div class="d-flex align-items-center link-container">
                     <NuxtLink to="/" class="nav-link text-white" @click.native="scrollToTop">Kezdőlap</NuxtLink>
                     <NuxtLink class="nav-link text-white">Prémium</NuxtLink>
-                    <NuxtLink class="nav-link text-white">Fiók</NuxtLink>
-                    <button class="btn text-white fw-bold join-btn" @click="scrollToSubscription">
-                        Csatlakozz!
-                    </button>
+                    <NuxtLink to="/profile" class="nav-link text-white">Fiók</NuxtLink>
+                    <AppButton label="Csatlakozz!" @click="scrollToSubscription" />
                 </div>
             </div>
         </nav>
@@ -19,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import AppButton from './AppButton.vue'
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -32,6 +31,7 @@ const scrollToTop = () => {
 };
 
 const scrollToSubscription = () => {
+    router.push('/');
     const element = document.getElementById('subscription-section');
     if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
