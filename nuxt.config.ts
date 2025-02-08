@@ -9,4 +9,11 @@ export default defineNuxtConfig({
   build: {
     transpile: ["bootstrap"],
   },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
+    },
+  },
 });
