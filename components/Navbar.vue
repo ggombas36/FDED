@@ -9,7 +9,7 @@
                     <NuxtLink to="/" class="nav-link text-white" @click.native="scrollToTop">Kezdőlap</NuxtLink>
                     <NuxtLink class="nav-link text-white">Prémium</NuxtLink>
                     <NuxtLink to="/profile" class="nav-link text-white">Fiók</NuxtLink>
-                    <AppButton label="Csatlakozz!" @click="scrollToSubscription" />
+                    <AppButton class="join-btn" label="Csatlakozz!" @click="scrollToSubscription" />
                 </div>
             </div>
         </nav>
