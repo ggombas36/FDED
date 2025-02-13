@@ -4,7 +4,7 @@
 
     <div class="content">
       <div v-if="isLoggedIn" class="logged-in-message">
-        <p>Bejelentkezve</p>
+        <LoggedInProfile />
       </div>
       <div v-else class="auth-container">
         <Login v-if="showLogin" @go-register="switchToRegister" @forgot-password="switchToForgot" @login="login"/>
@@ -25,6 +25,7 @@ import Footer from '@/components/Footer.vue'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import ForgotPassword from '@/components/ForgotPassword.vue'
+import LoggedInProfile from '@/components/LoggedInProfile.vue'
 
 const isLoggedIn = ref(false)
 const showLogin = ref(true)
@@ -77,9 +78,8 @@ function switchToForgot() {
 }
 
 .logged-in-message {
-  /* color: #fff;
-  background-color: #333; */
-  padding: 2rem;
+  width: 100%;
+  height: 100%;
 }
 
 .auth-container {

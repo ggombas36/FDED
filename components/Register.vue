@@ -5,23 +5,21 @@
       <InputField label="Név" type="text" v-model="name" />
       <p v-if="errors.name" class="error-message">{{ errors.name }}</p>
 
-      <!-- Phone -->
+      <InputField label="Felhasználónév" type="tel" v-model="username" />
+      <p v-if="errors.username" class="error-message">{{ errors.username }}</p>
+      
       <InputField label="Telefonszám" type="tel" v-model="phone" />
       <p v-if="errors.phone" class="error-message">{{ errors.phone }}</p>
 
-      <!-- Email -->
       <InputField label="Email cím" type="email" v-model="email" />
       <p v-if="errors.email" class="error-message">{{ errors.email }}</p>
 
-      <!-- Address -->
       <InputField label="Lakcím" type="text" v-model="address" />
       <p v-if="errors.address" class="error-message">{{ errors.address }}</p>
 
-      <!-- Password -->
       <PasswordInputField label="Jelszó" v-model="password" />
       <p v-if="errors.password" class="error-message">{{ errors.password }}</p>
 
-      <!-- Password Again -->
       <PasswordInputField label="Jelszó újból" v-model="passwordAgain" />
       <p v-if="errors.passwordAgain" class="error-message">{{ errors.passwordAgain }}</p>
     </div>
@@ -42,6 +40,7 @@ import AppButton from './AppButton.vue'
 const emit = defineEmits(['go-login'])
 
 const name = ref('')
+const username = ref('')
 const phone = ref('')
 const email = ref('')
 const address = ref('')
@@ -52,6 +51,7 @@ const errorMessage = ref('Ez a mező kötelező!')
 
 const errors = reactive({
   name: '',
+  username: '',
   phone: '',
   email: '',
   address: '',
@@ -62,6 +62,7 @@ const errors = reactive({
 function validateForm() {
   // Clear errors
   errors.name = name.value.trim() ? '' : errorMessage.value
+  errors.username = username.value.trim() ? '' : errorMessage.value
   errors.phone = phone.value.trim() ? '' : errorMessage.value
   errors.email = email.value.trim() ? '' : errorMessage.value
   errors.address = address.value.trim() ? '' : errorMessage.value
@@ -80,6 +81,10 @@ watch(email, (newVal) => {
 
 watch(name, (newVal) => {
   if (newVal.trim()) errors.name = ''
+})
+
+watch(username, (newVal) => {
+  if (newVal.trim()) errors.username = ''
 })
 
 watch(phone, (newVal) => {
