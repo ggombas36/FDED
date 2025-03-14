@@ -69,7 +69,7 @@ watch(passwordValue, (newVal) => {
     position: absolute;
     right: 0.75rem;
     font-size: 1.2rem;
-    top: 55%;
+    top: 51.5%;
     cursor: pointer;
 }
 </style>

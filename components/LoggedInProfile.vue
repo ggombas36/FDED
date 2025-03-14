@@ -9,29 +9,29 @@
             </div>
         </div>
         <div class="profile-cards">
-            <div class="profile-card">
-                <div class="card-header">Profil</div>
-                <div class="card-content">
-                    <div class="data-row">Adaaaaaaaaaaaaa
-                         1</div>
-                    <div class="data-row">Adat 2</div>
-                    <div class="data-row">Adat 3</div>
-                </div>
-            </div>
-            <div class="profile-card">
-                <div class="card-header">Csomag</div>
-                <div class="card-content">
-                    <div class="data-row">Adat 1</div>
-                    <div class="data-row">Adat 2</div>
-                    <div class="data-row">Adat 3</div>
-                </div>
-            </div>
+            <ProfileCrad title="Felhasználói adatok" :data="profileData"/>
+            <ProfileCrad title="Előfizetési adatok" :data="subscriptionData"/>
         </div>
     </div>
 </template>
 
 <script setup>
-// No specific script needed for now
+import ProfileCrad from './ProfileCrad.vue';
+
+const profileData = ref([
+    { title: 'Email cím: ', value: 'test@gmail.com' },
+    { title: 'Felhasználónév: ', value: 'test' },
+    { title: 'Telefonszám: ', value: '+36301234567' },
+    { title: 'Lakcím: ', value: 'Budapest Teszt utca 11.' },
+    { title: 'Jelszó: ', value: '*******' },
+    { title: 'Lakcím: ', value: 'Budapest Teszt utca 11.' },
+]);
+
+const subscriptionData = ref([
+    { title: 'Csomag: ', value: 'Prémium' },
+    { title: 'Kártyaszám: ', value: '********0102' },
+    { title: 'Lejárati idő: ', value: '2025.03.31.' },
+]);
 </script>
 
 <style scoped>
@@ -78,35 +78,9 @@
     width: 90%;
     margin-top: 5%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 1rem;
+    /* justify-content: space-between; */
     height: 70%;
-}
-
-.profile-card {
-    width: 48%;
-    display: flex;
-    flex-direction: column;
-}
-
-.card-header {
-    background-color: #34363A;
-    color: #fff;
-    padding: 0.5rem;
-    text-align: center;
-}
-
-.card-content {
-    background-color: #738ba0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 1rem;
-}
-
-.data-row {
-    padding: 0.5rem;
-    text-align: center;
-    word-wrap: break-word;
 }
 </style>
