@@ -16,7 +16,7 @@
       <p v-if="errors.message" class="error-message">{{ errors.message }}</p>
 
       <div class="text-center">
-        <AppButton label="Küldés" button-theme="form-dark-button" @click="validateForm" />
+        <AppButton label="Küldés" button-theme="form-dark-button" borderRadius="5rem" @click="validateForm" />
       </div>
     </div>
     <AppToast v-if="showToast" :message="toastMessage" :toastType="'success'" @close="handleCloseToast" />

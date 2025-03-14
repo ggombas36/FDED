@@ -60,7 +60,7 @@ watch(passwordValue, (newVal) => {
 .form-group input {
     width: 100%;
     border: 1px solid lightgray;
-    border-radius: 0;
+    border-radius: 1rem;
     padding: 0.5rem;
     outline: none;
 }

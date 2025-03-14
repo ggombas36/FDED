@@ -58,6 +58,12 @@
   justify-content: space-between;
   padding: 1rem;
   margin: 0 0.5rem;
+  border-radius: 1rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.faq-card:hover {
+  transform: scale(1.05);
 }
 
 /* Bottom link styling */

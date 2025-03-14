@@ -36,5 +36,6 @@
     border-radius: 0;
     padding: 0.75rem 1.5rem;
     font-size: 1.1rem;
+    border-radius: 5rem;
   }
   </style>

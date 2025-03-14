@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonTheme" @click="$emit('click')">
+  <button :class="buttonTheme" :style="`border-radius: ${borderRadius};`" @click="$emit('click')">
     {{ label }}
   </button>
 </template>
@@ -14,6 +14,10 @@ const props = defineProps({
     type: String,
     default: "fded-button",
   },
+  borderRadius: {
+    type: String,
+    default: "0",
+  }
 })
 </script>
 

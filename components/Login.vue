@@ -7,8 +7,8 @@
     <p v-if="errors.password" class="error-message">{{ errors.password }}</p>
     <p class="forgot-text" @click="emit('forgot-password')">Elfelejtett jelszó?</p>
     <div class="button-container">
-      <AppButton label="Bejelentkezés" button-theme="form-dark-button" @click="validateForm" />
-      <AppButton label="Regisztráció" button-theme="form-light-button" @click="emit('go-register')" />
+      <AppButton label="Bejelentkezés" button-theme="form-dark-button" border-radius="5rem" @click="validateForm" />
+      <AppButton label="Regisztráció" button-theme="form-light-button" border-radius="5rem" @click="emit('go-register')" />
     </div>
   </div>
 </template>

@@ -46,6 +46,7 @@ function scrollToSubscription() {
     padding: 2rem;
     text-align: center;
     margin: 0 auto;
+    border-radius: 1rem;
 }
 
 @property --angle {
@@ -66,6 +67,7 @@ function scrollToSubscription() {
     translate: calc(-50%) -50%;
     z-index: -1;
     animation: 4s spin linear infinite;
+    border-radius: 1rem;
 }
 
 .hero-card::before {

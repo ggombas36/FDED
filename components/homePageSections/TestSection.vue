@@ -40,5 +40,6 @@ padding: 0 5rem;
     color: #fff;
     width: 80%;
     height: 100%;
+    border-radius: 1rem;
 }
 </style>

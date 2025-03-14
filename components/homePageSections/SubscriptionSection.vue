@@ -65,18 +65,32 @@
     padding: 1rem;
     box-sizing: border-box;
     margin-bottom: 25px;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(115, 139, 160, 0.3);
 }
 
-/* Left card styles */
 .sub-card-light {
     background-color: #f9f6fe;
     color: #000;
+    transition: transform 0.2s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
-/* Right card styles */
+.sub-card-light:hover {
+    background-color: rgba(249, 246, 254, 0.9);
+    box-shadow: 0 0 15px rgba(115, 139, 160, 0.6);
+    transform: scale(1.03);
+}
+
 .sub-card-dark {
     background-color: #1e293b;
     color: #fff;
+    transition: transform 0.2s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+
+.sub-card-dark:hover {
+    box-shadow: 0 0 20px rgb(30, 41, 59);
+    transform: scale(1.03);
 }
 
 /* Buttons */
@@ -86,25 +100,44 @@
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
-    width: 95%;
+    width: 40%;
     border: none;
-    border-radius: 0;
+    border-radius: 1rem;
     padding: 0.75rem 0;
     font-size: 1.2rem;
     cursor: pointer;
     text-align: center;
 }
 
+
 /* Light card button */
 .sub-button-light {
     background-color: #a9a3ae;
     color: #fff;
+    box-shadow: 0 0 10px rgba(169, 163, 174, 0.5);
 }
 
-/* Dark card button */
+.sub-button-light:hover {
+    box-shadow: 0 0 15px rgba(169, 163, 174, 1);
+}
+
+.sub-button-light:active {
+    background-color: rgba(169, 163, 174, 0.8);
+}
+
+
 .sub-button-dark {
     background-color: #fff;
     color: #1e293b;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+}
+
+.sub-button-dark:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+
+.sub-button-dark:active {
+    background-color: #f9f6fe;
 }
 
 .sub-card ul {
