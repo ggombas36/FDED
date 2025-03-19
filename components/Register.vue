@@ -7,7 +7,7 @@
 
       <InputField label="Felhasználónév" type="tel" v-model="username" />
       <p v-if="errors.username" class="error-message">{{ errors.username }}</p>
-      
+
       <InputField label="Telefonszám" type="tel" v-model="phone" />
       <p v-if="errors.phone" class="error-message">{{ errors.phone }}</p>
 
@@ -36,6 +36,7 @@ import { ref, reactive, watch } from 'vue'
 import InputField from './InputField.vue'
 import PasswordInputField from './PasswordInputField.vue'
 import AppButton from './AppButton.vue'
+import AuthProvider from '../services/auth'
 
 const emit = defineEmits(['go-login'])
 
@@ -46,6 +47,7 @@ const email = ref('')
 const address = ref('')
 const password = ref('')
 const passwordAgain = ref('')
+const authProvider = AuthProvider();
 
 const errorMessage = ref('Ez a mező kötelező!')
 
@@ -71,8 +73,21 @@ function validateForm() {
   // If no errors, handle registration
   const hasErrors = Object.values(errors).some(msg => msg !== '')
   if (!hasErrors) {
+    handleRegister()
     emit('go-login')
   }
+}
+
+const handleRegister = async () => {
+  const registerData = {
+    name: name.value,
+    username: username.value,
+    email: email.value,
+    phone: phone.value,
+    address: address.value,
+    password: password.value
+  }
+  await authProvider.registerUser(registerData)
 }
 
 watch(email, (newVal) => {
@@ -102,11 +117,6 @@ watch(password, (newVal) => {
 watch(passwordAgain, (newVal) => {
   if (newVal.trim()) errors.passwordAgain = ''
 })
-
-
-function handleRegister() {
-  alert('Regisztráció gomb megnyomva')
-}
 </script>
 
 <style scoped>

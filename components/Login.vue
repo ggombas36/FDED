@@ -18,11 +18,14 @@ import { ref, watch } from 'vue'
 import InputField from './InputField.vue'
 import AppButton from './AppButton.vue'
 import PasswordInputField from './PasswordInputField.vue'
+import { useAuthStore } from '@/stores/auth'
+
 
 const emit = defineEmits(['login', 'go-register', 'forgot-password'])
 
 const username = ref('')
 const password = ref('')
+const authStore = useAuthStore()
 
 const errorMessage = ref('Ez a mező kötelező!')
 
@@ -36,7 +39,7 @@ function validateForm() {
   errors.password = password.value.trim() ? '' : errorMessage.value
   const hasErrors = Object.values(errors).some(msg => msg !== '')
   if (!hasErrors) {
-    emit('login')
+    handleLogin()
   }
 }
 
@@ -48,8 +51,18 @@ watch(password, (newVal) => {
   if (newVal.trim()) errors.password = ''
 })
 
-function handleLogin() {
-  alert('Bejelentkezés gomb megnyomva')
+async function handleLogin() {
+  try {
+    await authStore.loginUser(username.value, password.value)
+    emit('login')
+  } catch (error) {
+    // Handle different error cases
+    if (error.response?.status === 401) {
+      errors.password = 'Hibás felhasználónév vagy jelszó'
+    } else {
+      errors.password = 'Hiba történt a bejelentkezés során'
+    }
+  }
 }
 </script>
 

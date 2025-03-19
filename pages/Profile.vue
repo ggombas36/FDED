@@ -3,7 +3,7 @@
     <Navbar />
 
     <div class="content">
-      <div v-if="isLoggedIn" class="logged-in-message">
+      <div v-if="authStore.isAuthenticated" class="logged-in-message">
         <LoggedInProfile />
       </div>
       <div v-else class="auth-container">
@@ -18,14 +18,17 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "@/stores/auth";
 import { ref } from 'vue'
-// Replace these imports as needed
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import ForgotPassword from '@/components/ForgotPassword.vue'
 import LoggedInProfile from '@/components/LoggedInProfile.vue'
+
+const authStore = useAuthStore();
+authStore.loadAuth();
 
 const isLoggedIn = ref(false)
 const showLogin = ref(true)

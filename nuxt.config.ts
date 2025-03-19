@@ -7,13 +7,20 @@ export default defineNuxtConfig({
     "bootstrap-icons/font/bootstrap-icons.css",
   ],
   build: {
-    transpile: ["bootstrap"],
+    transpile: ["bootstrap", "jwt-decode"],
   },
   app: {
     head: {
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      ],
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
+  },
+  ssr: true,
+  nitro: {
+    storage: {
+      redis: {
+        driver: "redis",
+        /* your redis configuration */
+      },
     },
   },
 });

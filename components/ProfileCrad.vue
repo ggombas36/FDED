@@ -13,7 +13,7 @@ const props = defineProps({
         <div class="card-content">
             <div v-for="item in data" class="data-row">
                 <span><b>{{ item.title }}</b></span>
-                <span>{{ item.value }}</span>
+                <span>{{ item.value }}</span>  
             </div>
         </div>
     </div>
