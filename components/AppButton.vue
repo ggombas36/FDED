@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonTheme" :style="`border-radius: ${borderRadius};`" @click="$emit('click')">
+  <button :class="buttonTheme" :style="`border-radius: ${borderRadius};`" @click="click">
     {{ label }}
   </button>
 </template>
@@ -17,6 +17,10 @@ const props = defineProps({
   borderRadius: {
     type: String,
     default: "0",
+  },
+  click: {
+    type: Function,
+    default: () => {},
   }
 })
 </script>
@@ -47,7 +51,7 @@ const props = defineProps({
   color: #fff;
   border: none;
   border-radius: 0;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 1.25rem !important;
   font-size: 1.3rem;
   cursor: pointer;
   /* border: #fff solid 1px; */

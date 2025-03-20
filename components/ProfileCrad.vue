@@ -2,7 +2,7 @@
 
 const props = defineProps({
     title: String,
-    data: Array
+    data: Array,
 })
 
 </script>
@@ -22,6 +22,8 @@ const props = defineProps({
 <style scoped>
 .profile-card {
     width: 48%;
+    min-width: 300px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     border-radius: 1rem;

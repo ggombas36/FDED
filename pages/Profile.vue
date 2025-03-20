@@ -3,14 +3,16 @@
     <Navbar />
 
     <div class="content">
-      <div v-if="authStore.isAuthenticated" class="logged-in-message">
-        <LoggedInProfile />
-      </div>
-      <div v-else class="auth-container">
-        <Login v-if="showLogin" @go-register="switchToRegister" @forgot-password="switchToForgot" @login="login"/>
-        <Register v-else-if="showRegister" @go-login="switchToLogin" />
-        <ForgotPassword v-else @go-login="switchToLogin" />
-      </div>
+      <ClientOnly>
+        <div v-if="authStore.isAuthenticated" class="logged-in-message">
+          <LoggedInProfile :user_id="authStore?.user_id"/>
+        </div>
+        <div v-else class="auth-container">
+          <Login v-if="showLogin" @go-register="switchToRegister" @forgot-password="switchToForgot" @login="login" />
+          <Register v-else-if="showRegister" @go-login="switchToLogin" />
+          <ForgotPassword v-else @go-login="switchToLogin"/>
+        </div>
+      </ClientOnly>
     </div>
 
     <Footer />
@@ -28,7 +30,9 @@ import ForgotPassword from '@/components/ForgotPassword.vue'
 import LoggedInProfile from '@/components/LoggedInProfile.vue'
 
 const authStore = useAuthStore();
-authStore.loadAuth();
+onMounted(() => {
+  authStore.loadAuth();  
+})
 
 const isLoggedIn = ref(false)
 const showLogin = ref(true)

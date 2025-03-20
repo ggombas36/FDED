@@ -16,6 +16,7 @@ export const useAuthStore = defineStore("auth", {
       // Check if we're on client side
       if (!ssrContext) {
         const token = localStorage.getItem("auth_token");
+        const user_id = localStorage.getItem("user_id");
         if (token) {
           const decoded = jwtDecode(token);
           const now = Date.now() / 1000;
@@ -27,6 +28,9 @@ export const useAuthStore = defineStore("auth", {
             this.logoutUser();
           }
         }
+        if (user_id) {
+          this.user_id = user_id;
+        }
       }
     },
 
@@ -34,14 +38,21 @@ export const useAuthStore = defineStore("auth", {
       try {
         const response = await authProvider().loginUser(email, password);
         const token = response.access_token;
+        const user_id = response.user_id;
         const { ssrContext } = useNuxtApp();
+
+        console.log("id",response.user_id);
+        
 
         this.token = token;
         this.isAuthenticated = true;
+        this.user_id = user_id;
         
         // Only access localStorage on client side
         if (!ssrContext) {
           localStorage.setItem("auth_token", token);
+          
+          localStorage.setItem("user_id", user_id);
           
           const decoded = jwtDecode(token);
           const expiresIn = (decoded.exp - Date.now() / 1000) * 1000;
@@ -61,7 +72,7 @@ export const useAuthStore = defineStore("auth", {
       if (!ssrContext) {
         localStorage.removeItem("auth_token");
       }
-      useRouter().push("/login");
+      // useRouter().push("/profile");
     },
   },
 });

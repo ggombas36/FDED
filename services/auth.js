@@ -3,8 +3,10 @@ import axios from "axios";
 const API_BASE_URL = "https://fded-backend-production.up.railway.app"; // 🔥 Backend URL-ed
 
 const authProvider = () => {
+
   return {
     registerUser: async (userData) => {
+
       try {
         const response = await axios.post(`${API_BASE_URL}/register`, {
           name: userData.name,
@@ -16,10 +18,6 @@ const authProvider = () => {
         });
         return response.data;
       } catch (error) {
-        console.error(
-          "❌ Hiba történt a regisztráció során:",
-          error.response?.data || error.message
-        );
         throw error;
       }
     },
@@ -39,10 +37,6 @@ const authProvider = () => {
 
         return response.data;
       } catch (error) {
-        console.error(
-          "❌ Hiba történt a bejelentkezés során:",
-          error.response?.data || error.message
-        );
         throw error;
       }
     },
@@ -63,6 +57,23 @@ const authProvider = () => {
         }
         return config;
       });
+    },
+
+    getUserById: async (userId) => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        console.error(
+          "❌ Hiba történt a felhasználó lekérése során:",
+          error.response?.data || error.message
+        );
+        throw error;
+      }
     },
   };
 };

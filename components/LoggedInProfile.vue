@@ -3,20 +3,56 @@
         <div class="profile-header">
             <img src="@/assets/images/fdedlogo.png" alt="Profile Picture" class="profile-pic" />
             <div class="profile-info">
-                <div class="info-item">Felhasználónév</div>
-                <div class="info-item">Prémium</div>
-                <div class="info-item">Csatlakozás dátuma</div>
+                <div class="info-item">
+                    <span>Felhasználónév:&nbsp;</span>
+                    <div v-if="isLoading">...</div>
+                    <div v-else>{{ user[1].value }}</div>
+                </div>
+                <div class="info-item">Prémium:&nbsp;</div>
+                <div class="info-item">Csatlakozás dátuma:&nbsp;</div>
             </div>
         </div>
         <div class="profile-cards">
-            <ProfileCrad title="Felhasználói adatok" :data="profileData"/>
-            <ProfileCrad title="Előfizetési adatok" :data="subscriptionData"/>
+            <template class="spinner-container" v-if="isLoading">
+                <Spinner />
+            </template>
+            <template v-else>
+                <ProfileCrad title="Felhasználói adatok" :data="user" />
+                <ProfileCrad title="Előfizetési adatok" :data="subscriptionData" />
+            </template>
         </div>
     </div>
 </template>
 
 <script setup>
 import ProfileCrad from './ProfileCrad.vue';
+import Spinner from './Spinner.vue';
+import { onMounted } from 'vue';
+import AuthProvider from '@/services/auth';
+
+const props = defineProps({
+    user_id: String,
+});
+
+const authProvider = AuthProvider();
+const user = ref();
+const isLoading = ref(true);
+
+onMounted(async () => {
+    try {
+        const getUser = await authProvider.getUserById(props.user_id);
+        user.value = [
+            { title: 'Email cím: ', value: getUser.email || "-" },
+            { title: 'Felhasználónév: ', value: getUser.username || "-" },
+            { title: 'Telefonszám: ', value: getUser.phone || "-" },
+            { title: 'Lakcím: ', value: getUser.address || "-" },
+        ];
+    } catch (error) {
+        console.error('Error fetching user:', error);
+    } finally {
+        isLoading.value = false;
+    }
+});
 
 const profileData = ref([
     { title: 'Email cím: ', value: 'test@gmail.com' },
@@ -35,6 +71,15 @@ const subscriptionData = ref([
 </script>
 
 <style scoped>
+.spinner-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
 .profile-container {
     display: flex;
     flex-direction: column;
@@ -80,7 +125,17 @@ const subscriptionData = ref([
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    /* justify-content: space-between; */
+    justify-content: center;
     height: 70%;
+}
+
+@media screen and (max-width: 768px) {
+    .profile-cards {
+        flex-direction: column;
+        height: auto;
+        /* Allow height to adjust based on content */
+        align-items: center;
+        width: 100%;
+    }
 }
 </style>

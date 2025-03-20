@@ -23,9 +23,10 @@
       <PasswordInputField label="Jelszó újból" v-model="passwordAgain" />
       <p v-if="errors.passwordAgain" class="error-message">{{ errors.passwordAgain }}</p>
     </div>
+    <p class="forgot-text" @click="emit('go-login')">Bejelentkezés</p>
     <div class="button-container">
-      <AppButton label="Regisztráció" button-theme="form-dark-button" @click="validateForm" />
-      <AppButton label="Bejelentkezés" button-theme="form-light-button" @click="$emit('go-login')" />
+      <AppButton label="Regisztráció" button-theme="form-dark-button" border-radius="5rem" :click="validateForm" />
+      <!-- <AppButton label="Bejelentkezés" button-theme="form-light-button" @click="$emit('go-login')" /> -->
     </div>
     <div style="height: 25px"></div>
   </div>
@@ -48,8 +49,10 @@ const address = ref('')
 const password = ref('')
 const passwordAgain = ref('')
 const authProvider = AuthProvider();
+const isSubmitting = ref(false)
 
 const errorMessage = ref('Ez a mező kötelező!')
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 
 const errors = reactive({
   name: '',
@@ -62,7 +65,8 @@ const errors = reactive({
 })
 
 function validateForm() {
-  // Clear errors
+  if (isSubmitting.value) return
+
   errors.name = name.value.trim() ? '' : errorMessage.value
   errors.username = username.value.trim() ? '' : errorMessage.value
   errors.phone = phone.value.trim() ? '' : errorMessage.value
@@ -70,28 +74,66 @@ function validateForm() {
   errors.address = address.value.trim() ? '' : errorMessage.value
   errors.password = password.value.trim() ? '' : errorMessage.value
   errors.passwordAgain = passwordAgain.value.trim() ? '' : errorMessage.value
-  // If no errors, handle registration
+
+  if (!email.value.trim()) {
+    errors.email = errorMessage.value
+  } else if (!emailRegex.test(email.value)) {
+    errors.email = 'Érvénytelen email cím formátum'
+  } else {
+    errors.email = ''
+  }
+
+  if (!passwordAgain.value.trim()) {
+    errors.passwordAgain = errorMessage.value
+  } else if (passwordAgain.value !== password.value) {
+    errors.passwordAgain = 'A jelszavak nem egyeznek'
+  } else {
+    errors.passwordAgain = ''
+  }
+
   const hasErrors = Object.values(errors).some(msg => msg !== '')
   if (!hasErrors) {
     handleRegister()
-    emit('go-login')
   }
 }
 
 const handleRegister = async () => {
-  const registerData = {
-    name: name.value,
-    username: username.value,
-    email: email.value,
-    phone: phone.value,
-    address: address.value,
-    password: password.value
+  if (isSubmitting.value) return
+
+  try {
+    isSubmitting.value = true
+    const registerData = {
+      name: name.value,
+      username: username.value,
+      email: email.value,
+      phone: phone.value,
+      address: address.value,
+      password: password.value
+    }
+    await authProvider.registerUser(registerData)
+    emit('go-login')
+  } catch (error) {    
+    if (error.response?.data?.detail?.code == 'EXISTING_EMAIL') {   
+      errors.email = 'Ez az emailcím már regisztrálva van'
+    } else if (error.response?.data?.detail?.code == 'EXISTING_USERNAME') {
+      errors.username = 'Ez a felhasználónév már regisztrálva van'
+    } else {
+      errors.passwordAgain = 'Hiba történt a regisztráció során'
+    }
+    console.error('Registration error:', error)
+  } finally {
+    isSubmitting.value = false
   }
-  await authProvider.registerUser(registerData)
 }
 
 watch(email, (newVal) => {
-  if (newVal.trim()) errors.email = ''
+  if (!newVal.trim()) {
+    errors.email = errorMessage.value
+  } else if (!emailRegex.test(newVal)) {
+    errors.email = 'Érvénytelen email cím formátum'
+  } else {
+    errors.email = ''
+  }
 })
 
 watch(name, (newVal) => {
@@ -111,11 +153,24 @@ watch(address, (newVal) => {
 })
 
 watch(password, (newVal) => {
-  if (newVal.trim()) errors.password = ''
+  if (newVal.trim()) {
+    errors.password = ''
+    if (passwordAgain.value && passwordAgain.value !== newVal) {
+      errors.passwordAgain = 'A jelszavak nem egyeznek'
+    } else if (passwordAgain.value === newVal) {
+      errors.passwordAgain = ''
+    }
+  }
 })
 
 watch(passwordAgain, (newVal) => {
-  if (newVal.trim()) errors.passwordAgain = ''
+  if (!newVal.trim()) {
+    errors.passwordAgain = errorMessage.value
+  } else if (newVal !== password.value) {
+    errors.passwordAgain = 'A jelszavak nem egyeznek'
+  } else {
+    errors.passwordAgain = ''
+  }
 })
 </script>
 
@@ -152,5 +207,11 @@ watch(passwordAgain, (newVal) => {
   display: flex;
   justify-content: center;
   gap: 1rem;
+}
+
+.forgot-text {
+  text-align: right;
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>

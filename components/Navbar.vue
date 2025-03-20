@@ -9,7 +9,10 @@
                     <NuxtLink to="/" class="nav-link text-white" @click.native="scrollToTop">Kezdőlap</NuxtLink>
                     <NuxtLink class="nav-link text-white">Prémium</NuxtLink>
                     <NuxtLink to="/profile" class="nav-link text-white">Fiók</NuxtLink>
-                    <AppButton class="join-btn" border-radius="5rem" label="Csatlakozz!" @click="scrollToSubscription" />
+                    <AppButton v-if="!authStore.isAuthenticated" class="join-btn" border-radius="5rem"
+                        label="Csatlakozz!" :click="scrollToSubscription" />
+                    <AppButton v-else class="join-btn" border-radius="5rem" label="Kijelentkezés" :click="logout"
+                        button-theme="form-dark-button" />
                 </div>
             </div>
         </nav>
@@ -19,8 +22,10 @@
 <script setup lang="ts">
 import AppButton from './AppButton.vue'
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter();
+const authStore = useAuthStore()
 
 const scrollToTop = () => {
     router.push('/');
@@ -29,6 +34,13 @@ const scrollToTop = () => {
         element.scrollIntoView({ behavior: 'smooth' });
     }
 };
+
+const logout = () => {
+    if (authStore.isAuthenticated) {
+        authStore.logoutUser()
+    }
+    // router.push('/')
+}
 
 const scrollToSubscription = () => {
     router.push('/');
@@ -77,7 +89,7 @@ const scrollToSubscription = () => {
 }
 
 .join-btn {
-    background-color: #000;
+    /* background-color: #000; */
     border: none;
     border-radius: 0;
     padding: 1rem 2rem;
