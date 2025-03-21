@@ -122,6 +122,7 @@ const subscriptionData = ref([
 .profile-cards {
     width: 90%;
     margin-top: 5%;
+    margin-bottom: 5%;
     display: flex;
     flex-direction: row;
     gap: 1rem;

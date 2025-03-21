@@ -93,4 +93,10 @@ function switchToForgot() {
   width: 80%;
   max-width: 600px;
 }
+
+@media (max-width: 520px) {
+  .content {
+    margin-top: 80px;
+  }
+}
 </style>

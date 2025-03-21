@@ -24,7 +24,7 @@
                     <td><i class="bi bi-x-square-fill"></i></td>
                     <td><i class="bi bi-x-square-fill"></i></td>
                     <td><i class="bi bi-x-square-fill"></i></td>
-                    <td>9.99$</td>
+                    <td>9.99€</td>
                 </tr>
                 <!-- Third row -->
                 <tr>
@@ -35,7 +35,7 @@
                     <td><i class="bi bi-check-square-fill"></i></td>
                     <td><i class="bi bi-check-square-fill"></i></td>
                     <td><i class="bi bi-check-square-fill"></i></td>
-                    <td>14.99$</td>
+                    <td>14.99€</td>
                 </tr>
             </tbody>
         </table>

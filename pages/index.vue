@@ -2,7 +2,7 @@
     <Navbar />
     <div class="main-container">
         <div class="page-content">
-            <WelcomeSection id="welcome-section"/>
+            <WelcomeSection id="welcome-section" />
             <InfoSection />
             <SubscriptionSection id="subscription-section" />
             <TableSection />
@@ -41,5 +41,12 @@ import Footer from '@/components/Footer.vue';
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+@media (max-width: 520px) {
+    .main-container {
+        margin-top: 80px;
+        height: calc(100vh - 80px);
+    }
 }
 </style>

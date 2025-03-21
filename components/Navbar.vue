@@ -19,13 +19,15 @@
     </header>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import AppButton from './AppButton.vue'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
+import { useToast } from '@/composables/useToast'
 
 const router = useRouter();
 const authStore = useAuthStore()
+const toast = useToast()
 
 const scrollToTop = () => {
     router.push('/');
@@ -38,6 +40,7 @@ const scrollToTop = () => {
 const logout = () => {
     if (authStore.isAuthenticated) {
         authStore.logoutUser()
+        toast.success('Sikeres kijelentkezés!')
     }
     // router.push('/')
 }
@@ -118,7 +121,23 @@ const scrollToSubscription = () => {
 
 @media (max-width: 520px) {
     .join-btn {
-        display: none;
+        padding: 0.4rem 0.75rem !important;
+        font-size: 1rem;
+        margin-left: 0.25rem;
+    }
+    .custom-navbar {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .nav-link {
+        margin-right: 0.5rem;
+        font-size: 1rem;
+    }
+    .logo-img {
+        width: 3rem;
+    }
+    .custom-navbar {
+        height: 80px;
     }
 }
 </style>

@@ -16,7 +16,7 @@
                             <li>Ideális választás a kezdők számára.</li>
                             <li>Fedezd fel mire vagy képes az első lépésekkel!</li>
                         </ul>
-                        <button class="sub-button-light">9.99$ / hó</button>
+                        <button class="sub-button-light">9.99€ / hó</button>
                     </div>
                 </div>
 
@@ -33,7 +33,7 @@
                             <li>Teljesítménykövetés és részletes statisztikák az előrehaladásodról.</li>
                             <li>Az álmaid eléréséhez szükséges minden eszköz egy helyen!</li>
                         </ul>
-                        <button class="sub-button-dark">14.99$ / hó</button>
+                        <button class="sub-button-dark">14.99€ / hó</button>
                     </div>
                 </div>
             </div>

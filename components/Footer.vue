@@ -11,9 +11,9 @@
 <style scoped>
 .footer-container {
     width: 100%;
-    height: 60px;
+    height: 30px;
     background-color: #fff;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
