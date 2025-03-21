@@ -20,10 +20,12 @@ import InputField from './InputField.vue'
 import AppButton from './AppButton.vue'
 import PasswordInputField from './PasswordInputField.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useToast } from '@/composables/useToast'
 
 
 const emit = defineEmits(['login', 'go-register', 'forgot-password'])
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+const toast = useToast()
 
 const email = ref('')
 const password = ref('')
@@ -37,16 +39,27 @@ const errors = reactive({
 })
 
 function validateForm() {
+  errors.email = email.value.trim() ? '' : errorMessage.value
+  errors.password = password.value.trim() ? '' : errorMessage.value
+
+  const hasEmptyFields = [
+    email.value,
+    password.value,
+  ].some(field => !field.trim())
+
+  if (hasEmptyFields) {
+    toast.error('Minden mező kitöltése kötelező')
+  }
+
   if (!email.value.trim()) {
     errors.email = errorMessage.value
   } else if (!emailRegex.test(email.value)) {
     errors.email = 'Érvénytelen email cím formátum'
+    toast.error('Érvénytelen email cím formátum')
   } else {
     errors.email = ''
   }
 
-  errors.email = email.value.trim() ? '' : errorMessage.value
-  errors.password = password.value.trim() ? '' : errorMessage.value
   const hasErrors = Object.values(errors).some(msg => msg !== '')
   if (!hasErrors) {
     handleLogin()
@@ -71,15 +84,18 @@ async function handleLogin() {
   try {
     await authStore.loginUser(email.value, password.value)
     emit('login')
+    toast.success('Sikeres bejelentkezés')
   } catch (error) {
     console.error('Login error:', error)
     // Handle specific error codes
     if (error.response?.data?.detail?.code === 'WRONG_PASSWORD') {
       errors.password = 'Hibás jelszó'
+      toast.error('Hibás jelszó')
     } else if (error.response?.data?.detail?.code === 'NON_EXISTING_EMAIL') {
       errors.email = 'Az email cím nincs regisztrálva'
+      toast.error('Az email cím nincs regisztrálva')
     } else {
-      errors.password = 'Hiba történt a bejelentkezés során'
+      toast.error('Hiba történt a bejelentkezés során')
     }
   }
 }
@@ -93,7 +109,7 @@ async function handleLogin() {
   margin-bottom: 1rem;
 }
 
-.title{
+.title {
   margin-bottom: 2rem;
 }
 

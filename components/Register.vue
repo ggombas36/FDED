@@ -38,8 +38,10 @@ import InputField from './InputField.vue'
 import PasswordInputField from './PasswordInputField.vue'
 import AppButton from './AppButton.vue'
 import AuthProvider from '../services/auth'
+import { useToast } from '@/composables/useToast'
 
 const emit = defineEmits(['go-login'])
+const toast = useToast()
 
 const name = ref('')
 const username = ref('')
@@ -75,9 +77,23 @@ function validateForm() {
   errors.password = password.value.trim() ? '' : errorMessage.value
   errors.passwordAgain = passwordAgain.value.trim() ? '' : errorMessage.value
 
+  const hasEmptyFields = [
+    name.value,
+    username.value,
+    phone.value,
+    email.value,
+    address.value,
+    password.value,
+    passwordAgain.value
+  ].some(field => !field.trim())
+
+  if (hasEmptyFields) {
+    toast.error('Nincs kitöltve az összes kötelező mező!')
+  }
   if (!email.value.trim()) {
     errors.email = errorMessage.value
   } else if (!emailRegex.test(email.value)) {
+    toast.error('Érvénytelen email cím formátum')
     errors.email = 'Érvénytelen email cím formátum'
   } else {
     errors.email = ''
@@ -86,6 +102,7 @@ function validateForm() {
   if (!passwordAgain.value.trim()) {
     errors.passwordAgain = errorMessage.value
   } else if (passwordAgain.value !== password.value) {
+    toast.error('A jelszavak nem egyeznek')
     errors.passwordAgain = 'A jelszavak nem egyeznek'
   } else {
     errors.passwordAgain = ''
@@ -99,7 +116,6 @@ function validateForm() {
 
 const handleRegister = async () => {
   if (isSubmitting.value) return
-
   try {
     isSubmitting.value = true
     const registerData = {
@@ -112,13 +128,15 @@ const handleRegister = async () => {
     }
     await authProvider.registerUser(registerData)
     emit('go-login')
-  } catch (error) {    
+    toast.success(`Sikeres regisztráció, email cím: ${email.value}`)
+  } catch (error) {
     if (error.response?.data?.detail?.code == 'EXISTING_EMAIL') {   
       errors.email = 'Ez az emailcím már regisztrálva van'
     } else if (error.response?.data?.detail?.code == 'EXISTING_USERNAME') {
+      toast.error('Ez a felhasználónév már regisztrálva van')
       errors.username = 'Ez a felhasználónév már regisztrálva van'
     } else {
-      errors.passwordAgain = 'Hiba történt a regisztráció során'
+      toast.error('Hiba történt a regisztráció során')
     }
     console.error('Registration error:', error)
   } finally {

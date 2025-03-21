@@ -23,4 +23,8 @@ export default defineNuxtConfig({
       },
     },
   },
+  plugins: [
+    // ...existing plugins...
+    '~/plugins/toast.client.js'
+  ],
 });
