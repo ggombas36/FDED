@@ -1,0 +1,58 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple",
+      "question": "Mi a JavaScript egyik legfontosabb tulajdonsága az aszinkron műveletek kezelésében?",
+      "answers": [
+        {
+          "id": 1,
+          "text": "Promise objektumok",
+          "isCorrect": true
+        },
+        {
+          "id": 2,
+          "text": "For ciklusok",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "text": "Callback függvények",
+          "isCorrect": true
+        },
+        {
+          "id": 4,
+          "text": "While ciklusok",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "multiple",
+      "question": "Mely állítások igazak a Vue.js komponensekre?",
+      "answers": [
+        {
+          "id": 1,
+          "text": "Újrafelhasználható kódrészletek",
+          "isCorrect": true
+        },
+        {
+          "id": 2,
+          "text": "Csak HTML kódot tartalmazhatnak",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "text": "Saját state-tel rendelkezhetnek",
+          "isCorrect": true
+        },
+        {
+          "id": 4,
+          "text": "Nem lehet bennük JavaScript logika",
+          "isCorrect": false
+        }
+      ]
+    }
+  ]
+}

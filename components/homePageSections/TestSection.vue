@@ -3,13 +3,14 @@
         <h1 class="mb-4 ">Próba teszt</h1>
         <div class="test-container">
             <div class="test-content">
-                LFUK Mintateszt
+                <StudyCardWrapper />
             </div>
         </div>
     </section>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import StudyCardWrapper from '../StudyCardWrapper.vue';
 // No specific script needed
 </script>
 
@@ -36,7 +37,7 @@ padding: 0 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #000;
+    /* background-color: #000; */
     color: #fff;
     width: 80%;
     height: 100%;
