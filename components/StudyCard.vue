@@ -2,7 +2,7 @@
     <div class="study-card">
         <div class="content-section">
             <div class="question-section">
-                <p class="question-text">{{ currentQuestion.question }}</p>
+                <div class="question-text">{{ currentQuestion.question }}</div>
             </div>
 
             <div class="answers-section">
@@ -16,9 +16,9 @@
             </div>
 
             <div class="button-section">
-                <AppButton :disabled="isFirstQuestion" label="Vissza" button-theme="form-light-button"
+                <AppButton :disabled="isFirstQuestion" label="Vissza" border-radius="1rem" button-theme="form-light-button"
                     @click="$emit('prev')" />
-                <AppButton :label="isLastQuestion ? 'Leadás' : 'Következő'" button-theme="form-dark-button"
+                <AppButton :label="isLastQuestion ? 'Leadás' : 'Következő'" border-radius="1rem" button-theme="form-dark-button"
                     @click="$emit('next')" />
             </div>
         </div>
@@ -41,12 +41,28 @@ const props = defineProps({
     isLastQuestion: {
         type: Boolean,
         default: false
+    },
+    savedAnswers: {
+        type: Object,
+        default: () => ({})
     }
 })
 
 const selectedAnswers = ref([])
+const emit = defineEmits(['next', 'prev', 'updateAnswers'])
 
-defineEmits(['next', 'prev'])
+// Watch for question changes to load saved answers
+watch(() => props.currentQuestion.id, (newQuestionId) => {
+    selectedAnswers.value = props.savedAnswers[newQuestionId] || []
+}, { immediate: true })
+
+// Watch selected answers to save them
+watch(selectedAnswers, (newAnswers) => {
+    emit('updateAnswers', {
+        questionId: props.currentQuestion.id,
+        answers: [...newAnswers]
+    })
+})
 </script>
 
 <style scoped>
@@ -70,7 +86,7 @@ defineEmits(['next', 'prev'])
 
 .button-section {
     position: absolute;
-    bottom: 0.5rem;
+    bottom: 1rem;
     left: 0;
     right: 0;
     display: flex;
@@ -96,6 +112,7 @@ defineEmits(['next', 'prev'])
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-left: 3rem;
     gap: 1rem;
     width: 100%;
 }
@@ -122,7 +139,7 @@ defineEmits(['next', 'prev'])
 .checkmark {
     width: 20px;
     height: 20px;
-    border: 2px solid #738ba0;
+    border: 2px solid white;
     border-radius: 4px;
     position: relative;
 }
@@ -134,13 +151,13 @@ defineEmits(['next', 'prev'])
     top: 2px;
     width: 5px;
     height: 10px;
-    border: solid #738ba0;
+    border: solid white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
 
 .answer-text {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .button-section {
