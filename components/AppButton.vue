@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonTheme" :style="`border-radius: ${borderRadius};`" @click="click">
+  <button :disabled="isDisabled" :class="isDisabled ? 'disabled-button' : buttonTheme" :style="`border-radius: ${borderRadius};`" @click="click">
     {{ label }}
   </button>
 </template>
@@ -21,7 +21,11 @@ const props = defineProps({
   click: {
     type: Function,
     default: () => {},
-  }
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false,
+  },
 })
 </script>
 
@@ -34,6 +38,16 @@ const props = defineProps({
   padding: 1rem 2rem;
   font-size: 1.3rem;
   cursor: pointer;
+}
+
+.disabled-button{
+  background-color: #ccc;
+  color: #666;
+  padding: 0.5rem 1.25rem !important;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 0;
+  cursor: not-allowed;
 }
 
 .fded-button:hover {

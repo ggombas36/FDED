@@ -1,0 +1,274 @@
+{
+    "questions": [
+      {
+        "id": 1,
+        "type": "multiple",
+        "question": "Mi a JavaScript egyik legfontosabb tulajdonsága az aszinkron műveletek kezelésében?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Promise objektumok",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "For ciklusok",
+            "isCorrect": false
+          },
+          {
+            "id": 3,
+            "text": "Callback függvények",
+            "isCorrect": true
+          },
+          {
+            "id": 4,
+            "text": "While ciklusok",
+            "isCorrect": false
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "type": "multiple",
+        "question": "Mely állítások igazak a Vue.js komponensekre?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Újrafelhasználható kódrészletek",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "Csak HTML kódot tartalmazhatnak",
+            "isCorrect": false
+          },
+          {
+            "id": 3,
+            "text": "Saját state-tel rendelkezhetnek",
+            "isCorrect": true
+          },
+          {
+            "id": 4,
+            "text": "Nem lehet bennük JavaScript logika",
+            "isCorrect": false
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "type": "multiple",
+        "question": "Melyik adatszerkezetek használhatók JavaScript-ben tömbök kezelésére?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Map",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "Set",
+            "isCorrect": true
+          },
+          {
+            "id": 3,
+            "text": "Tuple",
+            "isCorrect": false
+          },
+          {
+            "id": 4,
+            "text": "Array",
+            "isCorrect": true
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "type": "multiple",
+        "question": "Mely állítások igazak a CSS Grid layout rendszerre?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Csak kétdimenziós elrendezést tesz lehetővé",
+            "isCorrect": false
+          },
+          {
+            "id": 2,
+            "text": "Támogatja a területek elnevezését",
+            "isCorrect": true
+          },
+          {
+            "id": 3,
+            "text": "Csak fix méretű elemeket kezelhet",
+            "isCorrect": false
+          },
+          {
+            "id": 4,
+            "text": "Lehetővé teszi a rugalmas sorokat és oszlopokat",
+            "isCorrect": true
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "type": "multiple",
+        "question": "Melyik HTTP státuszkódok jeleznek sikeres választ?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "200 OK",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "201 Created",
+            "isCorrect": true
+          },
+          {
+            "id": 3,
+            "text": "404 Not Found",
+            "isCorrect": false
+          },
+          {
+            "id": 4,
+            "text": "500 Internal Server Error",
+            "isCorrect": false
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "type": "multiple",
+        "question": "Mely állítások igazak a RESTful API-kra?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Állapotmentesek",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "Mindig XML formátumban kommunikálnak",
+            "isCorrect": false
+          },
+          {
+            "id": 3,
+            "text": "Erőforrás-alapú elérést biztosítanak",
+            "isCorrect": true
+          },
+          {
+            "id": 4,
+            "text": "Csak GET és POST kéréseket használnak",
+            "isCorrect": false
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "multiple",
+        "question": "Mely módszerek alkalmasak JavaScript kód aszinkron futtatására?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "async/await",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "Promise láncok",
+            "isCorrect": true
+          },
+          {
+            "id": 3,
+            "text": "For ciklusok",
+            "isCorrect": false
+          },
+          {
+            "id": 4,
+            "text": "setTimeout",
+            "isCorrect": true
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "multiple",
+        "question": "Mely adatbázis típusok NoSQL adatbázisok?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "MongoDB",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "MySQL",
+            "isCorrect": false
+          },
+          {
+            "id": 3,
+            "text": "Redis",
+            "isCorrect": true
+          },
+          {
+            "id": 4,
+            "text": "PostgreSQL",
+            "isCorrect": false
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "type": "multiple",
+        "question": "Melyik eszközök segítik a modern webfejlesztést?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Webpack",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "Babel",
+            "isCorrect": true
+          },
+          {
+            "id": 3,
+            "text": "FTP kliens",
+            "isCorrect": false
+          },
+          {
+            "id": 4,
+            "text": "ESLint",
+            "isCorrect": true
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "type": "multiple",
+        "question": "Mely biztonsági gyakorlatok fontosak webalkalmazások fejlesztésénél?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "SQL injection elleni védelem",
+            "isCorrect": true
+          },
+          {
+            "id": 2,
+            "text": "Jelszavak plain text tárolása",
+            "isCorrect": false
+          },
+          {
+            "id": 3,
+            "text": "Cross-Site Scripting (XSS) elleni védelem",
+            "isCorrect": true
+          },
+          {
+            "id": 4,
+            "text": "HTTPS használata",
+            "isCorrect": true
+          }
+        ]
+      }
+    ]
+  }
