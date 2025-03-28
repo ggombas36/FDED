@@ -18,13 +18,13 @@
             </div>
 
             <div class="button-section">
-                <AppButton :disabled="isFirstQuestion" label="Vissza" border-radius="1rem"
+                <AppButton :isDisabled="isFirstQuestion" label="Vissza" border-radius="1rem"
                     button-theme="form-light-button" @click="$emit('prev')" />
                 <div class="question-counter">
                     {{ currentQuestionNumber }} / {{ totalQuestions }}
                 </div>
                 <AppButton :label="isLastQuestion ? 'Leadás' : 'Következő'" border-radius="1rem"
-                    button-theme="form-dark-button" @click="$emit('next')" />
+                    :button-theme="isLastQuestion ? 'form-dark-button' : 'form-light-button'" @click="$emit('next')" />
             </div>
         </div>
     </div>
@@ -130,6 +130,7 @@ watch(selectedAnswers, (newAnswers) => {
     right: 0;
     bottom: 4rem;
     overflow-y: auto;
+    scrollbar-color: #334155 #1e293b;
 }
 
 .answers-section {
@@ -163,6 +164,8 @@ watch(selectedAnswers, (newAnswers) => {
 .checkmark {
     width: 20px;
     height: 20px;
+    min-width: 20px;
+    min-height: 20px;
     border: 2px solid white;
     border-radius: 4px;
     position: relative;
