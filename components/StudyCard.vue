@@ -5,21 +5,26 @@
                 <div class="question-text">{{ currentQuestion.question }}</div>
             </div>
 
-            <div class="answers-section">
-                <div v-for="answer in currentQuestion.answers" :key="answer.id" class="answer-item">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" v-model="selectedAnswers" :value="answer.id">
-                        <span class="checkmark"></span>
-                        <span class="answer-text">{{ answer.text }}</span>
-                    </label>
+            <div class="answers-container">
+                <div class="answers-section">
+                    <div v-for="answer in currentQuestion.answers" :key="answer.id" class="answer-item">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" v-model="selectedAnswers" :value="answer.id">
+                            <span class="checkmark"></span>
+                            <span class="answer-text">{{ answer.text }}</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <div class="button-section">
-                <AppButton :disabled="isFirstQuestion" label="Vissza" border-radius="1rem" button-theme="form-light-button"
-                    @click="$emit('prev')" />
-                <AppButton :label="isLastQuestion ? 'Leadás' : 'Következő'" border-radius="1rem" button-theme="form-dark-button"
-                    @click="$emit('next')" />
+                <AppButton :disabled="isFirstQuestion" label="Vissza" border-radius="1rem"
+                    button-theme="form-light-button" @click="$emit('prev')" />
+                <div class="question-counter">
+                    {{ currentQuestionNumber }} / {{ totalQuestions }}
+                </div>
+                <AppButton :label="isLastQuestion ? 'Leadás' : 'Következő'" border-radius="1rem"
+                    button-theme="form-dark-button" @click="$emit('next')" />
             </div>
         </div>
     </div>
@@ -32,6 +37,14 @@ import AppButton from './AppButton.vue'
 const props = defineProps({
     currentQuestion: {
         type: Object,
+        required: true
+    },
+    currentQuestionNumber: {
+        type: Number,
+        required: true
+    },
+    totalQuestions: {
+        type: Number,
         required: true
     },
     isFirstQuestion: {
@@ -78,10 +91,7 @@ watch(selectedAnswers, (newAnswers) => {
     flex: 1;
     padding: 2rem;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
+    position: relative;
 }
 
 .button-section {
@@ -93,12 +103,17 @@ watch(selectedAnswers, (newAnswers) => {
     justify-content: center;
     gap: 2rem;
     padding: 0 2rem;
-    /* background-color: #34363A; */
+}
+
+.fixed-height-spacer {
+    height: 10px;
 }
 
 .question-section {
     text-align: left;
     width: 100%;
+    max-height: 30%;
+    overflow-y: auto;
 }
 
 .question-text {
@@ -106,6 +121,15 @@ watch(selectedAnswers, (newAnswers) => {
     font-size: 1.2rem;
     line-height: 1.5;
     text-align: left;
+}
+
+.answers-container {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    bottom: 4rem;
+    overflow-y: auto;
 }
 
 .answers-section {
@@ -126,7 +150,7 @@ watch(selectedAnswers, (newAnswers) => {
 .custom-checkbox {
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     gap: 1rem;
     color: white;
     cursor: pointer;
@@ -161,9 +185,71 @@ watch(selectedAnswers, (newAnswers) => {
 }
 
 .button-section {
-    margin-top: auto;
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.question-counter {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 1.1rem;
+    user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 500px) {
+    .answers-container {
+        top: 35%;
+    }
+
+    .answers-section {
+        padding-left: 2rem;
+    }
+
+    .button-section {
+        flex-direction: row;
+        justify-content: space-between;
+        bottom: 0.75rem;
+        padding: 0 0.5rem;
+        padding-top: 2.5rem;
+    }
+
+    .question-counter {
+        bottom: auto;
+        top: 0.5rem;
+        width: 100%;
+        text-align: center;
+        transform: none;
+        left: 0;
+    }
+
+    .answers-container {
+        bottom: 6rem;
+    }
+
+    .content-section {
+        padding: 1rem;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .answers-section {
+        padding-left: 0.5rem;
+    }
+    .answer-text {
+        font-size: 0.9rem;
+    }
 }
 </style>

@@ -5,6 +5,8 @@
             :is-first-question="currentIndex === 0"
             :is-last-question="currentIndex === questions.length - 1"
             :saved-answers="savedAnswers"
+            :current-question-number="currentIndex + 1"
+            :total-questions="questions.length"
             @next="handleNext"
             @prev="handlePrev"
             @update-answers="updateAnswers"
@@ -54,5 +56,16 @@ const updateAnswers = ({ questionId, answers }) => {
     align-items: center;
     margin: auto;
     position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+    .study-card-wrapper {
+        width: 100%;
+        height: 100%;
+    }
 }
 </style>
