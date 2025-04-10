@@ -79,7 +79,7 @@ const scrollToSubscription = () => {
 }
 
 .custom-navbar {
-    height: 110px;
+    height: 80px;
     background: linear-gradient(135deg, #34363A 10%, #738ba0 80%);
     width: 100%;
     padding-left: 2rem;
@@ -87,7 +87,7 @@ const scrollToSubscription = () => {
 }
 
 .nav-link {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-right: 3rem;
 }
 
@@ -95,13 +95,13 @@ const scrollToSubscription = () => {
     /* background-color: #000; */
     border: none;
     border-radius: 0;
-    padding: 1rem 2rem;
-    font-size: 1.3rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
     margin-left: 2rem;
 }
 
 .logo-img {
-    width: 5rem;
+    width: 4rem;
     height: auto;
     cursor: pointer;
 }

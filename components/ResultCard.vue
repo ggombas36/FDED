@@ -1,92 +1,59 @@
 <template>
     <div class="result-card">
-        <div class="result-header">
-            <h2 class="result-title">Eredmény</h2>
-        </div>
-        
-        <div class="result-content">
+        <!-- Left Side - Fixed Results -->
+        <div class="results-fixed">
+            <div class="result-header">
+                <h2 class="result-title">Eredmény</h2>
+            </div>
             <div class="score-display">
                 <div class="donut-chart-container">
-                    <!-- SVG Donut Chart -->
                     <svg class="donut-chart" viewBox="0 0 36 36">
-                        <!-- Background circle -->
-                        <circle class="donut-ring" 
-                            cx="18" cy="18" r="15.91" 
-                            fill="transparent" 
-                            stroke="#334155" 
-                            stroke-width="3"
-                        ></circle>
-                        
-                        <!-- Progress circle with stroke-dasharray trick for percentage -->
-                        <circle class="donut-segment" 
-                            cx="18" cy="18" r="15.91" 
-                            fill="transparent" 
-                            stroke="#fff" 
-                            stroke-width="3"
-                            stroke-dasharray="100"
-                            :stroke-dashoffset="100 - percentage"
-                        ></circle>
+                        <circle class="donut-ring" cx="18" cy="18" r="15.91" fill="transparent" stroke="#334155"
+                            stroke-width="3"></circle>
+                        <circle class="donut-segment" cx="18" cy="18" r="15.91" fill="transparent" stroke="#fff"
+                            stroke-width="3" stroke-dasharray="100" :stroke-dashoffset="100 - percentage"></circle>
                     </svg>
-                    <!-- Percentage text overlay -->
                     <div class="percentage-overlay">
                         <div class="percentage-text">{{ percentage }}<span class="percentage-sign">%</span></div>
                     </div>
                 </div>
-                
                 <div class="score-number">{{ correctAnswers }} / {{ totalQuestions }}</div>
             </div>
-            
+            <div class="button-section">
+                <AppButton label="Újrakezdés" button-theme="form-dark-button" border-radius="1rem"
+                    @click="$emit('restart')" />
+            </div>
+        </div>
+
+        <!-- Right Side - Scrollable Questions -->
+        <div class="results-scrollable">
             <div class="score-details">
-                <div 
-                    v-for="(result, index) in resultDetails" 
-                    :key="index" 
-                    class="question-result"
+                <div class="question-result" v-for="(result, index) in resultDetails" :key="index"
                     :class="{ 'expanded': expandedQuestions.includes(result.questionId) }"
-                    @click="toggleQuestion(result.questionId)"
-                >
+                    @click="toggleQuestion(result.questionId)">
                     <div class="question-summary">
-                        <div class="question-number">{{ index + 1 }}. kérdés</div>
+                        <div class="question-text">{{ index + 1 }}. {{ getQuestionText(result.questionId) }}</div>
                         <div :class="['result-status', result.correct ? 'correct' : 'incorrect']">
                             {{ result.correct ? 'Helyes' : 'Helytelen' }}
                         </div>
                     </div>
-                    
+
                     <div v-if="expandedQuestions.includes(result.questionId)" class="question-details">
-                        <div class="question-text">{{ getQuestionText(result.questionId) }}</div>
                         <div class="answers-list">
-                            <div 
-                                v-for="answer in getQuestionAnswers(result.questionId)" 
-                                :key="answer.id"
+                            <div v-for="answer in getQuestionAnswers(result.questionId)" :key="answer.id"
                                 class="answer-item"
-                                :class="{'correct-answer': answer.isCorrect, 'incorrect-answer': !answer.isCorrect}"
-                            >
+                                :class="{ 'correct-answer': answer.isCorrect, 'incorrect-answer': !answer.isCorrect }">
                                 <span class="answer-text">{{ answer.text }}</span>
                                 <span class="answer-indicator">
-                                    <span 
-                                        v-if="isUserCorrectForAnswer(result.questionId, answer.id)"
-                                        class="correct-icon"
-                                        title="Helyes döntés"
-                                    >✓</span>
-                                    <span 
-                                        v-else
-                                        class="incorrect-icon"
-                                        title="Helytelen döntés"
-                                    >✗</span>
+                                    <span v-if="isUserCorrectForAnswer(result.questionId, answer.id)"
+                                        class="correct-icon" title="Helyes döntés">✓</span>
+                                    <span v-else class="incorrect-icon" title="Helytelen döntés">✗</span>
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="button-section">
-            <AppButton 
-                label="Újrakezdés" 
-                button-theme="form-dark-button" 
-                border-radius="1rem"
-                @click="$emit('restart')" 
-            />
         </div>
     </div>
 </template>
@@ -141,29 +108,56 @@ const isUserCorrectForAnswer = (questionId, answerId) => {
     const userAnswers = props.resultDetails.find(detail => detail.questionId === questionId)?.userAnswers || [];
     const answer = getQuestionAnswers(questionId).find(a => a.id === answerId);
 
-    return (answer.isCorrect && userAnswers.includes(answerId)) || 
-           (!answer.isCorrect && !userAnswers.includes(answerId));
+    return (answer.isCorrect && userAnswers.includes(answerId)) ||
+        (!answer.isCorrect && !userAnswers.includes(answerId));
 };
 
 defineEmits(['restart']);
 </script>
 
 <style scoped>
-/* Card layout */
 .result-card {
     width: 100%;
+    /* Changed from 90% to match wrapper */
     height: 100%;
+    /* Changed from 90vh to match wrapper */
+    max-height: 450px;
+    /* Added to match wrapper */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
     padding: 1.5rem;
     color: white;
+    background-color: #1e293b;
+    border-radius: 1rem;
     overflow: hidden;
 }
 
+.results-fixed {
+    width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+    justify-content: space-between;
+}
+
+.results-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding-left: 2rem;
+    padding-right: 1rem;
+    height: 100%;
+}
+
+/* Header styles */
 .result-header {
-    margin-bottom: 1rem;
+    width: 100%;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .result-title {
@@ -171,49 +165,21 @@ defineEmits(['restart']);
     margin: 0;
 }
 
-.result-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-color: #334155 #1e293b;
-}
-
-/* Scrollbar styling */
-.result-content::-webkit-scrollbar {
-    width: 8px;
-}
-
-.result-content::-webkit-scrollbar-track {
-    background-color: #1e293b;
-}
-
-.result-content::-webkit-scrollbar-thumb {
-    background-color: #334155;
-    border-radius: 4px;
-}
-
-/* Score display */
+/* Score display styles */
 .score-display {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
-.score-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
-/* Donut chart */
+/* Donut chart styles */
 .donut-chart-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
+    width: 150px;
+    /* Reduced from 200px */
+    height: 150px;
+    /* Reduced from 200px */
 }
 
 .donut-chart {
@@ -245,7 +211,6 @@ defineEmits(['restart']);
 .percentage-text {
     font-size: 2.5rem;
     font-weight: bold;
-    color: white;
 }
 
 .percentage-sign {
@@ -253,11 +218,16 @@ defineEmits(['restart']);
     vertical-align: super;
 }
 
-/* Question list */
+.score-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Question list styles */
 .score-details {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .question-result {
@@ -269,16 +239,23 @@ defineEmits(['restart']);
 }
 
 .question-result.expanded {
-    margin: 0.25rem 0;
+    margin: 0.5rem 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.01);
 }
 
 .question-summary {
     display: flex;
     justify-content: space-between;
-    padding: 0.75rem 1rem;
+    padding: 1rem;
     align-items: center;
+    gap: 1rem;
+}
+
+.question-summary .question-text {
+    flex: 1;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 .question-details {
@@ -286,100 +263,140 @@ defineEmits(['restart']);
     background-color: rgba(0, 0, 0, 0.2);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     animation: slideDown 0.3s ease-out;
-    transform-origin: top;
 }
 
-/* Answer items */
+/* Answer styles */
 .answers-list {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 .answer-item {
-    padding: 0.5rem;
+    padding: 0.75rem;
     border-radius: 0.3rem;
-    font-size: 0.95rem;
-    animation: fadeIn 0.5s ease-out;
-    transition: transform 0.2s;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.answer-item:hover {
-    transform: translateX(5px);
-}
-
-.answer-text {
-    flex: 1;
-}
-
-.answer-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    margin-left: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Status colors */
-.correct-answer { color: #4ade80; }
-.incorrect-answer { color: #f87171; }
-.correct { color: #4ade80; }
-.incorrect { color: #f87171; }
-.correct-icon { color: #4ade80; font-size: 1.2rem; font-weight: bold; }
-.incorrect-icon { color: #f87171; font-size: 1.2rem; font-weight: bold; }
+.correct {
+    color: #4ade80;
+}
 
-/* Button area */
+.incorrect {
+    color: #f87171;
+}
+
+.correct-answer {
+    color: #4ade80;
+}
+
+.incorrect-answer {
+    color: #f87171;
+}
+
+/* Scrollbar styles */
+.results-scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.results-scrollable::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.results-scrollable::-webkit-scrollbar-thumb {
+    background-color: rgba(115, 139, 160, 0.5);
+    border-radius: 4px;
+}
+
+/* Button section */
 .button-section {
-    margin-top: 1rem;
+    margin-top: 2rem;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
 
+.result-status {
+    flex-shrink: 0;
+    font-weight: bold;
+}
+
+
 /* Animations */
 @keyframes slideDown {
-    0% {
+    from {
         opacity: 0;
-        transform: scaleY(0);
-        max-height: 0;
+        transform: translateY(-10px);
     }
-    100% {
+
+    to {
         opacity: 1;
-        transform: scaleY(1);
-        max-height: 1000px;
+        transform: translateY(0);
     }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .result-card {
+        flex-direction: column;
+        overflow-y: auto;
+        padding: 1rem;
+    }
 
-/* Responsive adjustments */
-@media screen and (max-width: 500px) {
-    .question-summary {
+    .results-fixed {
+        width: 100%;
+        height: auto;
+        min-height: fit-content;
+        padding: 1rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    .results-scrollable {
         padding: 0.5rem;
-        font-size: 0.9rem;
-    }
-    
-    .question-text {
-        font-size: 0.9rem;
-    }
-    
-    .answer-item {
-        font-size: 0.85rem;
+        height: auto;
+        overflow-y: visible;
+        /* Remove separate scroll */
     }
 
     .donut-chart-container {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
     }
-    
-    .percentage-text {
-        font-size: 2rem;
+
+    .button-section {
+        margin: 1rem 0;
+    }
+
+    .score-details {
+        padding-bottom: 1rem;
+    }
+
+    .question-summary .question-text {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .result-card {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .question-summary {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .answer-item {
+        padding: 0.5rem;
+        font-size: 0.9rem;
     }
 }
 </style>

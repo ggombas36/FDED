@@ -105,8 +105,9 @@ const restartQuiz = () => {
 
 <style scoped>
 .study-card-wrapper {
-    width: 80%;
-    height: 90%;
+    width: 70%;
+    max-width: 1100px;
+    height: 100%;
     max-height: 450px;
     background-color: #1e293b;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -122,10 +123,22 @@ const restartQuiz = () => {
     -ms-user-select: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
     .study-card-wrapper {
-        width: 100%;
-        height: 100%;
+        width: 80%;
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .study-card-wrapper {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .study-card-wrapper {
+        width: 95%;
+    }
+}
+
 </style>

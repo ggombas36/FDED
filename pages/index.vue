@@ -31,8 +31,8 @@ import Footer from '@/components/Footer.vue';
 
 <style scoped>
 .main-container {
-    margin-top: 110px;
-    height: calc(100vh - 110px);
+    margin-top: 80px;
+    height: calc(100vh - 80px);
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -41,6 +41,25 @@ import Footer from '@/components/Footer.vue';
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(115, 139, 160, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(115, 139, 160, 0.5) transparent;
 }
 
 @media (max-width: 520px) {

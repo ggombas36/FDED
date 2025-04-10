@@ -56,17 +56,18 @@
 
 .sub-card {
     width: 100%;
-    height: 650px;
-    position: relative;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 1rem;
+    padding: 1rem 1rem;
     box-sizing: border-box;
     margin-bottom: 25px;
     border-radius: 1rem;
     box-shadow: 0 0 10px rgba(115, 139, 160, 0.3);
+    position: relative;
+    /* Add this line */
 }
 
 .sub-card-light {
@@ -97,7 +98,8 @@
 .sub-button-light,
 .sub-button-dark {
     position: absolute;
-    bottom: 5%;
+    bottom: 20px;
+    /* Reduced from 5% to 20px */
     left: 50%;
     transform: translateX(-50%);
     width: 40%;
@@ -141,21 +143,38 @@
 }
 
 .sub-card ul {
-  text-align: left;   /* Left-aligned text */
-  font-size: 1.1rem; /* Bigger font size */
-  line-height: 2;
+    text-align: left;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-12.col-md-6 {
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 830px) {
-  .subscriptions-section {
-    height: 1500px;
-  }
-  .row {
-    flex-direction: column;
-    align-items: center;
-  }
-  .sub-card {
-    margin-bottom: 50px;
-  }
+    .subscriptions-section {
+        height: 1500px;
+    }
+
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sub-card {
+        margin-bottom: 50px;
+    }
+
+    .sub-card ul {
+        margin-bottom: 5rem;
+    }
 }
 </style>
