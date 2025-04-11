@@ -12,7 +12,7 @@
       <p v-if="errors.postcode" class="error-message">{{ errors.postcode }}</p>
       <InputField label="Tárgy" type="text" v-model="subject" />
       <p v-if="errors.subject" class="error-message">{{ errors.subject }}</p>
-      <InputField label="Üzenet" type="text" v-model="message" />
+      <InputField label="Üzenet" type="textarea" v-model="message" />
       <p v-if="errors.message" class="error-message">{{ errors.message }}</p>
 
       <div class="text-center">

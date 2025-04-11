@@ -7,7 +7,7 @@
                 </div>
                 <div class="d-flex align-items-center link-container">
                     <NuxtLink to="/" class="nav-link text-white" @click.native="scrollToTop">Kezdőlap</NuxtLink>
-                    <NuxtLink class="nav-link text-white">Prémium</NuxtLink>
+                    <NuxtLink to="/premium" class="nav-link text-white">Prémium</NuxtLink>
                     <NuxtLink to="/profile" class="nav-link text-white">Fiók</NuxtLink>
                     <AppButton v-if="!authStore.isAuthenticated" class="join-btn" border-radius="5rem"
                         label="Csatlakozz!" :click="scrollToSubscription" />
